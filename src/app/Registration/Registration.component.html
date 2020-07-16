@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+
+    <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
+      <div class="row form-group">
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-label>UserName</mat-label>
+          <input matInput formControlName="userName" placeholder="Enter UserName">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter Password">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter Email">
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-label>Select Roles</mat-label>
+          <mat-select required>
+            <mat-option *ngFor="let role of roles" value="role.roleId">{{role.roleName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" type="submit">Register</button>
+    </form>
+  </div>
+</div>
+
+
