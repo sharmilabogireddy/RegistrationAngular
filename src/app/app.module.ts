@@ -14,6 +14,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { AdminComponent } from './admin/admin.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
    declarations: [
@@ -22,7 +23,8 @@ import { SearchComponent } from './search/search.component';
       RegistrationComponent,
       AdminComponent,
       NavbarComponent,
-      SearchComponent
+      SearchComponent,
+      HomeComponent
    ],
    imports: [
       BrowserModule,
