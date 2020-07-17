@@ -11,12 +11,18 @@ import { RegistrationComponent } from './Registration/Registration.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
+import { AdminComponent } from './admin/admin.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       LoginComponent,
-      RegistrationComponent
+      RegistrationComponent,
+      AdminComponent,
+      NavbarComponent,
+      SearchComponent
    ],
    imports: [
       BrowserModule,
@@ -28,8 +34,8 @@ import { AuthenticationService } from './services/authentication.service';
       ReactiveFormsModule
    ],
    providers: [
-     UserService,
-     AuthenticationService
+      UserService,
+      AuthenticationService
    ],
    bootstrap: [
       AppComponent

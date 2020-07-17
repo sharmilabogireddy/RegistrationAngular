@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-
 import {
   FormControl,
   FormGroup,
@@ -12,7 +11,6 @@ import { IRole } from '../Models/IRoles';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration } from '../Models/UserRegistration';
 import { registerLocaleData } from '@angular/common';
-import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-Registration',
@@ -25,7 +23,6 @@ export class RegistrationComponent implements OnInit {
   roles: Array<Role> = [];
   role: any;
   submitted = false;
-  @ViewChild('matSelect') matSelect: MatSelect;
 
   constructor(
     public userService: UserService,
@@ -40,20 +37,15 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         Validators.minLength(6),
       ]),
-      email: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
       ]),
+      confirmPassword: new FormControl('', [Validators.required]),
       floatLabel: this.floatLabelControl,
     });
   }
-
-  ngAfterViewInit() {
-    this.matSelect.valueChange.subscribe(value => {
-        console.log(value);
-    });
-}
 
   getRoles() {
     this.userService.getRoles().subscribe((data) => {
@@ -73,13 +65,13 @@ export class RegistrationComponent implements OnInit {
     reg.userName = this.f.userName.value;
     reg.password = this.f.password.value;
     reg.emailId = this.f.email.value;
-    reg.roleId = this.f.roleId.value;
+    //console.log(.selectedValue,"selected value");
+
     //reg.roleId = this.f.
     //console.log(reg);
     this.userService.userRegistration(reg).subscribe(
       (data) => {
         console.log('data submited... ' + JSON.stringify(data));
-
       },
       (error) => {
         //this.error = error;
@@ -88,6 +80,4 @@ export class RegistrationComponent implements OnInit {
     );
     //console.log('Successfully submitted');
   }
-
-
 }

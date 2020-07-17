@@ -1,11 +1,11 @@
+<div class="col-md-6 offset-md-3 mt-5"></div>
 <div class="card">
   <div class="card-body">
-
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
       <div class="row form-group">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>UserName</mat-label>
-          <input matInput formControlName="userName" placeholder="Enter UserName">
+          <input matInput formControlName="userName" placeholder="Enter UserName" required>
           <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
             <mat-error *ngIf="f.userName.errors.required">Name is required</mat-error>
             <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
@@ -14,20 +14,38 @@
       </div>
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="Enter Password">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="Enter Email" required>
         </mat-form-field>
+        <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-danger">
+          <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+          <mat-error *ngIf="f.email.errors.email">Email must be a valid email address</mat-error>
+        </div>
       </div>
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" placeholder="Enter Email">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter Password" required>
         </mat-form-field>
+        <!--<div *ngIf="f.password.touched" class="alert alert-danger">
+          <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+          <mat-error *ngIf="f.password.errors.minlength">Password must be at least 8 characters</mat-error>
+        </div>-->
       </div>
+      <!-- <div class="row">
+        <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput type="password" formControlName="confirmPassword" placeholder="Enter Password" required>
+        </mat-form-field>
+        <div *ngIf="f.confirmPassword.touched && f.confirmPassword.value != f.password.value" class="alert alert-danger">
+          <mat-error *ngIf="f.confirmPassword.errors.required">Confirm Password is required</mat-error>
+          <mat-error *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</mat-error>
+        </div>
+      </div>-->
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Select Roles</mat-label>
-          <mat-select #matSelect required>
+          <mat-select id="role" ng-model="selectedValue" required>
             <mat-option *ngFor="let role of roles" value="role.roleId">{{role.roleName}}</mat-option>
           </mat-select>
         </mat-form-field>
