@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 import {
@@ -12,6 +12,7 @@ import { IRole } from '../Models/IRoles';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration } from '../Models/UserRegistration';
 import { registerLocaleData } from '@angular/common';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-Registration',
@@ -22,7 +23,9 @@ export class RegistrationComponent implements OnInit {
   floatLabelControl = new FormControl('auto');
   public regForm: FormGroup;
   roles: Array<Role> = [];
+  role: any;
   submitted = false;
+  @ViewChild('matSelect') matSelect: MatSelect;
 
   constructor(
     public userService: UserService,
@@ -46,6 +49,12 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.matSelect.valueChange.subscribe(value => {
+        console.log(value);
+    });
+}
+
   getRoles() {
     this.userService.getRoles().subscribe((data) => {
       this.roles = data;
@@ -53,8 +62,10 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-   // convenience getter for easy access to form fields
-   get f() { return this.regForm.controls; }
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.regForm.controls;
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -62,17 +73,21 @@ export class RegistrationComponent implements OnInit {
     reg.userName = this.f.userName.value;
     reg.password = this.f.password.value;
     reg.emailId = this.f.email.value;
+    reg.roleId = this.f.roleId.value;
     //reg.roleId = this.f.
     //console.log(reg);
-    this.userService.userRegistration(reg)
-            .subscribe(
-                data => {
-                    console.log("data submited... "+ JSON.stringify(data));
-                },
-                error => {
-                    //this.error = error;
-                    //this.loading = false;
-                });
+    this.userService.userRegistration(reg).subscribe(
+      (data) => {
+        console.log('data submited... ' + JSON.stringify(data));
+
+      },
+      (error) => {
+        //this.error = error;
+        //this.loading = false;
+      }
+    );
     //console.log('Successfully submitted');
   }
+
+
 }

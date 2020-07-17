@@ -37,4 +37,5 @@ export class UserService {
     return this.http
       .post<any>(`${environment.apiUrl}/registration`, registrationModel);
   }
+
 }

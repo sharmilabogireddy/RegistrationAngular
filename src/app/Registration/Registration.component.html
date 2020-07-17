@@ -6,6 +6,10 @@
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>UserName</mat-label>
           <input matInput formControlName="userName" placeholder="Enter UserName">
+          <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+            <mat-error *ngIf="f.userName.errors.required">Name is required</mat-error>
+            <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
+          </div>
         </mat-form-field>
       </div>
       <div class="row">
@@ -23,7 +27,7 @@
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Select Roles</mat-label>
-          <mat-select required>
+          <mat-select #matSelect required>
             <mat-option *ngFor="let role of roles" value="role.roleId">{{role.roleName}}</mat-option>
           </mat-select>
         </mat-form-field>
@@ -32,5 +36,3 @@
     </form>
   </div>
 </div>
-
-
