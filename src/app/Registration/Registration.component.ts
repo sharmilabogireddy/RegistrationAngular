@@ -11,6 +11,7 @@ import { IRole } from '../Models/IRoles';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegistration } from '../Models/UserRegistration';
 import { registerLocaleData } from '@angular/common';
+import { first } from 'rxjs/internal/operators/first';
 
 @Component({
   selector: 'app-Registration',
@@ -23,6 +24,9 @@ export class RegistrationComponent implements OnInit {
   roles: Array<Role> = [];
   role: any;
   submitted = false;
+  error = '';
+  successMessage = '';
+  loading = false;
 
   constructor(
     public userService: UserService,
@@ -40,9 +44,10 @@ export class RegistrationComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(6),
       ]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      //confirmPassword: new FormControl('', [Validators.required]),
+      //role.roleId: new FormControl('', [Validators.required]),
       floatLabel: this.floatLabelControl,
     });
   }
@@ -60,22 +65,32 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.regForm);
     this.submitted = true;
+    // stop here if form is invalid
+    if (this.regForm.invalid) {
+      return;
+    }
+    this.loading = true;
+
     let reg = new UserRegistration();
     reg.userName = this.f.userName.value;
     reg.password = this.f.password.value;
     reg.emailId = this.f.email.value;
     //console.log(.selectedValue,"selected value");
 
-    //reg.roleId = this.f.
-    //console.log(reg);
-    this.userService.userRegistration(reg).subscribe(
+    reg.roleId = 2;
+    console.log(reg);
+    this.userService.userRegistration(reg).pipe(first())
+    .subscribe(
       (data) => {
-        console.log('data submited... ' + JSON.stringify(data));
+        this.loading = false;
+        this.regForm.reset();
+        this.successMessage = "User Created!";
       },
       (error) => {
-        //this.error = error;
-        //this.loading = false;
+        this.error = error;
+        this.loading = false;
       }
     );
     //console.log('Successfully submitted');

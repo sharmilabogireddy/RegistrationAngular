@@ -35,10 +35,13 @@ export class UserService {
 
   getAll() {
     return this.http.get<UserRegistration[]>(`${environment.apiUrl}/users`);
-}
-  userRegistration(registrationModel: UserRegistration) {
-    return this.http
-      .post<any>(`${environment.apiUrl}/registration`, registrationModel);
   }
 
+  userRegistration(registrationModel: UserRegistration) {
+    //console.log("registrationModel");
+    return this.http.post<any>(
+      `${environment.apiUrl}/registration`,
+      registrationModel
+    );
+  }
 }

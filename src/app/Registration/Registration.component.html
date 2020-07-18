@@ -1,3 +1,6 @@
+<div *ngIf="successMessage != ''" class="alert alert-primary" role="alert">
+  {{successMessage}}
+</div>
 <div class="col-md-6 offset-md-3 mt-5">
   <mat-card id="card" style="text-align: center;">
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
@@ -26,10 +29,10 @@
           <mat-label>Password</mat-label>
           <input matInput type="password" formControlName="password" placeholder="Enter Password" required>
         </mat-form-field>
-        <!--<div *ngIf="f.password.touched" class="alert alert-danger">
+        <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
           <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
           <mat-error *ngIf="f.password.errors.minlength">Password must be at least 8 characters</mat-error>
-        </div>-->
+        </div>
       </div>
       <!-- <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
@@ -49,7 +52,11 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <button mat-raised-button color="primary" type="submit">Register</button>
+      <button [disabled]="loading" mat-raised-button color="primary" type="submit">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Register
+      </button>
+      <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
     </form>
   </mat-card>
 </div>
