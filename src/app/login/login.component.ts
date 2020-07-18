@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
