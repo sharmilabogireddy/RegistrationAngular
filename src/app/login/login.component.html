@@ -8,25 +8,22 @@
         <div class="row form-group" style="padding-left: 150px;padding-top: 10px;">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>UserName</mat-label>
-            <input matInput formControlName="userName" placeholder="Enter UserName">
+            <input matInput formControlName="userName" placeholder="Enter UserName" required>
           </mat-form-field>
           <!--<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Username is required</div>
           </div>-->
-          <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+          <div *ngIf="submitted && f.userName.errors" class="alert alert-danger">
             <mat-error *ngIf="f.userName.errors.required">User Name is required</mat-error>
-            <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
           </div>
         </div>
         <div class="row form-group" style="padding-left: 150px;">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" placeholder="Enter Password"
-              [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <input matInput type="password" formControlName="password" placeholder="Enter Password" required/>
           </mat-form-field>
-          <div *ngIf="f.password.touched" class="alert alert-danger">
+          <div *ngIf="submitted && f.password.errors" class="alert alert-danger">
             <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
-            <mat-error *ngIf="f.password.errors.minlength">Password must be at least 8 characters</mat-error>
           </div>
         </div>
         <button [disabled]="loading" mat-raised-button color="primary" type="submit">
