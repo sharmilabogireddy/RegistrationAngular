@@ -1,35 +1,51 @@
 <div class="col-md-6 offset-md-3 mt-5">
-  <div class="card">
-    <div class="card-body">
+  <mat-card id="card" style="text-align: center;">
+    <mat-card-title>
+      <h1>Log In</h1>
+    </mat-card-title>
+    <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="row form-group">
+        <div class="row form-group" style="padding-left: 150px;padding-top: 10px;">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>UserName</mat-label>
             <input matInput formControlName="userName" placeholder="Enter UserName">
-            <div class="column" *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
-              <mat-error *ngIf="f.userName.errors.required">Name is required</mat-error>
-              <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
-            </div>
           </mat-form-field>
+          <!--<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>-->
+          <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+            <mat-error *ngIf="f.userName.errors.required">User Name is required</mat-error>
+            <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
+          </div>
         </div>
-        <div class="row">
+        <div class="row form-group" style="padding-left: 150px;">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" placeholder="Enter Password"
               [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
           </mat-form-field>
-        </div>
-        <div>
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.touched" class="alert alert-danger">
+            <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+            <mat-error *ngIf="f.password.errors.minlength">Password must be at least 8 characters</mat-error>
           </div>
         </div>
-        <button [disabled]="loading" class="btn btn-primary" type="submit">
+        <button [disabled]="loading" mat-raised-button color="primary" type="submit">
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Login
         </button>
         <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
       </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!--
+  <div class="alert alert-info">
+
+  </div>
+  <div class="card" style="text-align: center;">
+    <div class="card-body">
+
     </div>
   </div>
-</div>
+</div>-->
