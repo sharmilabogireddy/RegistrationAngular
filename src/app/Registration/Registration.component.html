@@ -47,8 +47,8 @@
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Select Roles</mat-label>
-          <mat-select id="role" ng-model="selectedValue" required>
-            <mat-option *ngFor="let role of roles" value="role.roleId">{{role.roleName}}</mat-option>
+          <mat-select id="role" formControlName="role" required>
+            <mat-option *ngFor="let role of roles" value="{{role.roleId}}">{{role.roleName}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

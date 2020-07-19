@@ -47,7 +47,7 @@ export class RegistrationComponent implements OnInit {
         Validators.minLength(6),
       ]),
       //confirmPassword: new FormControl('', [Validators.required]),
-      //role.roleId: new FormControl('', [Validators.required]),
+      role: new FormControl('', [Validators.required]),
       floatLabel: this.floatLabelControl,
     });
   }
@@ -65,34 +65,50 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.regForm);
     this.submitted = true;
+    this.loading = true;
+    this.successMessage = '';
+    this.error = '';
     // stop here if form is invalid
     if (this.regForm.invalid) {
       return;
     }
-    this.loading = true;
 
     let reg = new UserRegistration();
     reg.userName = this.f.userName.value;
     reg.password = this.f.password.value;
     reg.emailId = this.f.email.value;
-    //console.log(.selectedValue,"selected value");
-
-    reg.roleId = 2;
-    console.log(reg);
+    reg.roleId = parseInt(this.f.role.value);
     this.userService.userRegistration(reg).pipe(first())
     .subscribe(
       (data) => {
         this.loading = false;
-        this.regForm.reset();
+        this.submitted = false;
+        this.reset();
         this.successMessage = "User Created!";
       },
       (error) => {
         this.error = error;
         this.loading = false;
+        this.submitted = false;
       }
     );
     //console.log('Successfully submitted');
   }
+
+  reset() {
+    this.loading = false;
+    this.submitted = false;
+    this.regForm.reset();
+    //this.regForm.get('userName').clearAsyncValidators();
+    this.regForm.get('userName').clearValidators();
+    this.regForm.get('userName').updateValueAndValidity();
+    this.regForm.get('email').clearValidators();
+    this.regForm.get('email').updateValueAndValidity();
+    this.regForm.get('password').clearValidators();
+    this.regForm.get('password').updateValueAndValidity();
+    this.regForm.get('role').clearValidators();
+    this.regForm.get('role').updateValueAndValidity();
+  }
+
 }
