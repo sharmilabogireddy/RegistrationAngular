@@ -4,22 +4,36 @@ import { Observable } from 'rxjs';
 import { IProvider } from '@app/Models/IProvider';
 import { environment } from '@environments/environment';
 import { map } from 'rxjs/operators';
+import { IProviderBackend } from '@app/Models/IProviderBackend';
+import { Provider } from '@app/Models/Provider';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProviderService {
+  constructor(private http: HttpClient) {}
 
-constructor(private http: HttpClient) { }
-
-getProviderByTaxId(ProvTaxId: number): Observable<IProvider[]>{
-  return this.http.get<IProviderBackend>(`${environment.jsonPlaceholderUrl}/providerdb/SIMPLEQUERY?PROVTAXID = ` + ProvTaxId)
-  .pipe(
-    map(() => {
-
-    )
-  )
-
-  return;
-}
+  getProviderByTaxId(ProvTaxId: number): Observable<IProvider[]> {
+    return this.http
+      .get<IProviderBackend[]>(
+        `${environment.jsonPlaceholderUrl}/providerdb/SIMPLEQUERY?PROVTAXID=` +
+          ProvTaxId
+      )
+      .pipe(
+        map((response) => {
+          let provider: IProvider = null;
+          //console.log(response);
+          const providerArray: Array<IProvider> = [];
+          for (const obj of response) {
+            provider = new Provider();
+            provider.CHClaimId = obj.CHCLAIMID;
+            provider.PatientCtrlNbr = obj.PATIENTCTRLNBR;
+            provider.RePriceClaimNum = obj.REPRICECLAIMNUM;
+            provider.ClaimType = obj.CLAIMTYPE;
+          }
+          console.log('Provider Array : ', providerArray);
+          return providerArray;
+        })
+      );
+  }
 }
