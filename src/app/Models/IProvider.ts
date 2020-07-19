@@ -1,4 +1,4 @@
-export interface IClaim{
+export interface IProvider{
   CHClaimId: number,
   PatientCtrlNbr: number,
   RePriceClaimNum: number,
@@ -9,7 +9,6 @@ export interface IClaim{
   ProvTaxId: number,
   ReceiverId: number,
   TotalCharges: number,
-  NetworkName: string,
   RePriceAllow: number,
   RePriceSave: number
 }
