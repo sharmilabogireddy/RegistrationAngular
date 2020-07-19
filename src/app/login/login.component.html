@@ -1,23 +1,23 @@
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="container col-md-6 offset-md-3 mt-5">
   <mat-card id="card" style="text-align: center;">
     <mat-card-title>
       <h1>Log In</h1>
     </mat-card-title>
     <mat-card-content>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="row form-group" style="padding-left: 150px;padding-top: 10px;">
+        <div class="row form-group" style="padding-top: 10px;">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>UserName</mat-label>
             <input matInput formControlName="userName" placeholder="Enter UserName" required>
           </mat-form-field>
-          <!--<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>-->
+          </div>
           <div *ngIf="submitted && f.userName.errors" class="alert alert-danger">
             <mat-error *ngIf="f.userName.errors.required">User Name is required</mat-error>
           </div>
         </div>
-        <div class="row form-group" style="padding-left: 150px;">
+        <div class="row form-group">
           <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" placeholder="Enter Password" required/>

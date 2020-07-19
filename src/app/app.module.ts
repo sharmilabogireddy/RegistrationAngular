@@ -17,6 +17,7 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { ProviderComponent } from './provider/provider.component';
 
 @NgModule({
    declarations: [
@@ -26,7 +27,8 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
       AdminComponent,
       NavbarComponent,
       SearchComponent,
-      HomeComponent
+      HomeComponent,
+      ProviderComponent
    ],
    imports: [
       BrowserModule,
@@ -40,8 +42,6 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
    providers: [
       UserService,
       AuthenticationService,
-      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-      { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
    ],
    bootstrap: [
       AppComponent

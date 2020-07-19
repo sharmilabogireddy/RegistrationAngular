@@ -7,6 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { RoleEnum } from '@app/Models/RoleEnum';
 import { AuthGuard } from '@app/_helpers/auth.guard';
+import { ProviderComponent } from './provider/provider.component';
 
 const routes: Routes = [
   {
@@ -25,8 +26,8 @@ const routes: Routes = [
     data: { roles: [RoleEnum.Admin] }
   },
   {
-    path: 'search',
-    component: SearchComponent,
+    path: 'provider',
+    component: ProviderComponent,
     canActivate: [AuthGuard]
   },
   // otherwise redirect to home

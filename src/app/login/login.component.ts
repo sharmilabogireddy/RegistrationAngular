@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       userName: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
+      floatLabel: this.floatLabelControl,
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
