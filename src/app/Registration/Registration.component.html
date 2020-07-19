@@ -3,16 +3,19 @@
 </div>
 <div class="col-md-6 offset-md-3 mt-5">
   <mat-card id="card" style="text-align: center;">
+    <mat-card-title>
+      <h1>Registration Form</h1>
+    </mat-card-title>
     <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
       <div class="row form-group">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>UserName</mat-label>
           <input matInput formControlName="userName" placeholder="Enter UserName" required>
         </mat-form-field>
-          <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
-            <mat-error *ngIf="f.userName.errors.required">Name is required</mat-error>
-            <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
-          </div>
+        <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+          <mat-error *ngIf="f.userName.errors.required">Name is required</mat-error>
+          <mat-error *ngIf="f.userName.errors.minlength">Name should be atleat 6 characters.</mat-error>
+        </div>
       </div>
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">

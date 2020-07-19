@@ -10,8 +10,8 @@
             <mat-label>UserName</mat-label>
             <input matInput formControlName="userName" placeholder="Enter UserName" required>
           </mat-form-field>
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
+          <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+            <div *ngIf="f.userName.errors.required">Username is required</div>
           </div>
           <div *ngIf="submitted && f.userName.errors" class="alert alert-danger">
             <mat-error *ngIf="f.userName.errors.required">User Name is required</mat-error>

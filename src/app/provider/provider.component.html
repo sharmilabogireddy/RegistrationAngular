@@ -4,20 +4,29 @@
       <h1>Provider Search</h1>
     </mat-card-title>
     <mat-card-content>
-      <form [formGroup]="">
+      <form [formGroup]="providerForm">
         <div class="row form-group" style="padding-left: 150px;padding-top: 10px;">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Provider TaxId</mat-label>
             <input matInput formControlName="providerTaxId" placeholder="Enter ProviderTaxId" required>
           </mat-form-field>
-          <mat-form-field appearance="fill">
+          <div *ngIf="f.providerTaxId.touched && f.providerTaxId.invalid" class="alert alert-danger">
+            <mat-error *ngIf="f.providerTaxId.errors.required">Provider TaxId is required</mat-error>
+          </div>
+          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName" placeholder="Enter FirstName" required>
+            <input matInput formControlName="firstName" placeholder="Enter FirstName">
           </mat-form-field>
-          <mat-form-field appearance="fill">
+          <div *ngIf="f.firstName.touched && f.firstName.invalid" class="alert alert-danger">
+            <mat-error *ngIf="f.firstName.errors.required">First Name is required</mat-error>
+          </div>
+          <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName" placeholder="Enter LastName" required>
+            <input matInput formControlName="lastName" placeholder="Enter LastName">
           </mat-form-field>
+          <div *ngIf="f.lastName.touched && f.lastName.invalid" class="alert alert-danger">
+            <mat-error *ngIf="f.lastName.errors.required">Last Name is required</mat-error>
+          </div>
           <button mat-raised-button color="primary" type="submit">
             Search
           </button>

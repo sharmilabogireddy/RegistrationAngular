@@ -1,6 +1,8 @@
 .container .mat-form-field + .mat-form-field {
   margin-left: 10px;
 }
-.container form > * {
-  margin: 5px 0;
+button.mat-raised-button {
+  font-size: 20px;
+  height: 42px;
+  margin: 10px;
 }
