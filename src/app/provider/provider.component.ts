@@ -14,6 +14,8 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ProviderComponent implements OnInit {
   provider: IProvider;
   providers;
+  statusCode: number;
+  message: string;
   public providerForm: FormGroup;
   floatLabelControl = new FormControl('auto');
   displayedColumns: string[] = [
@@ -21,6 +23,10 @@ export class ProviderComponent implements OnInit {
     'PatientCtrlNbr',
     'RePriceClaimNum',
     'ClaimType',
+    'Patient',
+    'Provider',
+    'ProvId',
+    'ReceiverId'
   ];
   private paginator: MatPaginator;
 
@@ -32,7 +38,7 @@ export class ProviderComponent implements OnInit {
 
   @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
     this.paginator = mp;
-    this.providers.paginator = this.paginator;
+    //this.providers.paginator = this.paginator;
   }
 
   ngOnInit() {
@@ -53,12 +59,25 @@ export class ProviderComponent implements OnInit {
 
     this.providerService
       .getProviderByTaxId(this.providerForm.value.providerTaxId)
-      .subscribe((data) => {
-        //console.log("Data :", data);
-        this.providers = new MatTableDataSource(data);
-        this.providers.paginator = this.paginator;
-
-      });
+      .subscribe(
+        (data) => {
+          //console.log("Data :", data);
+          this.providers = new MatTableDataSource(data);
+          this.providers.paginator = this.paginator;
+          this.statusCode = 200;
+        },
+        (error) => {
+          console.log('This is errrrrrrrrrrrrr.. ', error);
+          if (error.status == 404) {
+            this.statusCode = 404;
+            this.message = 'The given Prvider Taxid is not found.';
+          } else {
+            this.statusCode = 500;
+            this.message =
+              'Please try again sometime later. If the issue persists contact the application administrator.';
+          }
+        }
+      );
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

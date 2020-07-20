@@ -32,6 +32,10 @@ export class ProviderService {
             provider.PatientCtrlNbr = obj.PATIENTCTRLNBR;
             provider.RePriceClaimNum = obj.REPRICECLAIMNUM;
             provider.ClaimType = obj.CLAIMTYPE;
+            provider.Patient = obj.PATIENT;
+            provider.Provider = obj.PROVIDER;
+            provider.ProvId = obj.PROVID;
+            provider.ReceiverId = obj.RECEIVERID;
             providerArray.push(provider);
           }
           //console.log('Result: ', providerArray);

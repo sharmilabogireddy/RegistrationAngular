@@ -34,36 +34,58 @@
       </form>
     </mat-card-content>
   </mat-card>
-  <mat-card class="table">
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-    </mat-form-field>
-    <table mat-table [dataSource]="providers">
-      <ng-container matColumnDef="CHClaimId">
-        <th mat-header-cell *matHeaderCellDef> CHClaimID </th>
-        <td mat-cell *matCellDef="let element"> {{element.CHClaimId}} </td>
-      </ng-container>
-      <ng-container matColumnDef="PatientCtrlNbr">
-        <th mat-header-cell *matHeaderCellDef> Patient Control Num </th>
-        <td mat-cell *matCellDef="let element"> {{element.PatientCtrlNbr}} </td>
-      </ng-container>
-      <ng-container matColumnDef="RePriceClaimNum">
-        <th mat-header-cell *matHeaderCellDef> RePriceClaimNum </th>
-        <td mat-cell *matCellDef="let element"> {{element.RePriceClaimNum}} </td>
-      </ng-container>
-      <ng-container matColumnDef="ClaimType">
-        <th mat-header-cell *matHeaderCellDef> ClaimType </th>
-        <td mat-cell *matCellDef="let element"> {{element.ClaimType}} </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-      </tr>
-    </table>
-    <mat-paginator #paginator [length]="providers?.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"
-      showFirstLastButtons>
-    </mat-paginator>
-  </mat-card>
+  <div *ngIf="statusCode == 404" class="alert alert-primary">
+    {{message}}
+  </div>
+  <div *ngIf="statusCode == 500" class="alert alert-danger">
+    {{message}}
+  </div>
+  <div *ngIf="statusCode == 200" class="mat-elevation-z8">
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      </mat-form-field>
+      <table mat-table [dataSource]="providers">
+        <ng-container matColumnDef="CHClaimId">
+          <th mat-header-cell *matHeaderCellDef> CHClaimID </th>
+          <td mat-cell *matCellDef="let element"> {{element.CHClaimId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="PatientCtrlNbr">
+          <th mat-header-cell *matHeaderCellDef> Patient Control Num </th>
+          <td mat-cell *matCellDef="let element"> {{element.PatientCtrlNbr}} </td>
+        </ng-container>
+        <ng-container matColumnDef="RePriceClaimNum">
+          <th mat-header-cell *matHeaderCellDef> RePriceClaimNum </th>
+          <td mat-cell *matCellDef="let element"> {{element.RePriceClaimNum}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ClaimType">
+          <th mat-header-cell *matHeaderCellDef> ClaimType </th>
+          <td mat-cell *matCellDef="let element"> {{element.ClaimType}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Patient">
+          <th mat-header-cell *matHeaderCellDef> Patient </th>
+          <td mat-cell *matCellDef="let element"> {{element.Patient}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Provider">
+          <th mat-header-cell *matHeaderCellDef> Provider </th>
+          <td mat-cell *matCellDef="let element"> {{element.Provider}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ProvId">
+          <th mat-header-cell *matHeaderCellDef> ProvId </th>
+          <td mat-cell *matCellDef="let element"> {{element.ProvId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ReceiverId">
+          <th mat-header-cell *matHeaderCellDef> ReceiverId </th>
+          <td mat-cell *matCellDef="let element"> {{element.ReceiverId}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+      <mat-paginator #paginator [length]="providers?.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"
+        showFirstLastButtons>
+      </mat-paginator>
+  </div>
 </div>
