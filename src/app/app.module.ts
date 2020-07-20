@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ProviderComponent } from './provider/provider.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
    declarations: [
@@ -28,7 +29,8 @@ import { ProviderComponent } from './provider/provider.component';
       NavbarComponent,
       SearchComponent,
       HomeComponent,
-      ProviderComponent
+      ProviderComponent,
+      TableComponent
    ],
    imports: [
       BrowserModule,
@@ -41,7 +43,7 @@ import { ProviderComponent } from './provider/provider.component';
    ],
    providers: [
       UserService,
-      AuthenticationService,
+      AuthenticationService
    ],
    bootstrap: [
       AppComponent

@@ -14,6 +14,8 @@ export class ProviderService {
   constructor(private http: HttpClient) {}
 
   getProviderByTaxId(ProvTaxId: number): Observable<IProvider[]> {
+    // console.log(`${environment.jsonPlaceholderUrl}/providerdb/SIMPLEQUERY?PROVTAXID=` +
+    // ProvTaxId);
     return this.http
       .get<IProviderBackend[]>(
         `${environment.jsonPlaceholderUrl}/providerdb/SIMPLEQUERY?PROVTAXID=` +
@@ -30,8 +32,9 @@ export class ProviderService {
             provider.PatientCtrlNbr = obj.PATIENTCTRLNBR;
             provider.RePriceClaimNum = obj.REPRICECLAIMNUM;
             provider.ClaimType = obj.CLAIMTYPE;
+            providerArray.push(provider);
           }
-          console.log('Provider Array : ', providerArray);
+          //console.log('Result: ', providerArray);
           return providerArray;
         })
       );
