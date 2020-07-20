@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-card id="card" style="text-align: center;">
+  <mat-card class="card" id="card" style="text-align: center;">
     <mat-card-title>
       <h1>Provider Search</h1>
     </mat-card-title>
@@ -34,30 +34,36 @@
       </form>
     </mat-card-content>
   </mat-card>
-  <table mat-table [dataSource]="providers">
-    <ng-container matColumnDef="CHClaimId">
-      <th mat-header-cell *matHeaderCellDef> CHClaimID </th>
-      <td mat-cell *matCellDef="let element"> {{element.CHClaimId}} </td>
-    </ng-container>
-    <ng-container matColumnDef="PatientCtrlNbr">
-      <th mat-header-cell *matHeaderCellDef> Patient Control Num </th>
-      <td mat-cell *matCellDef="let element"> {{element.PatientCtrlNbr}} </td>
-    </ng-container>
-    <ng-container matColumnDef="RePriceClaimNum">
-      <th mat-header-cell *matHeaderCellDef> RePriceClaimNum </th>
-      <td mat-cell *matCellDef="let element"> {{element.RePriceClaimNum}} </td>
-    </ng-container>
-    <ng-container matColumnDef="ClaimType">
-      <th mat-header-cell *matHeaderCellDef> ClaimType </th>
-      <td mat-cell *matCellDef="let element"> {{element.ClaimType}} </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    <!--<tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-    </tr>-->
-
-  </table>
-
+  <mat-card class="table">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <table mat-table [dataSource]="providers">
+      <ng-container matColumnDef="CHClaimId">
+        <th mat-header-cell *matHeaderCellDef> CHClaimID </th>
+        <td mat-cell *matCellDef="let element"> {{element.CHClaimId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="PatientCtrlNbr">
+        <th mat-header-cell *matHeaderCellDef> Patient Control Num </th>
+        <td mat-cell *matCellDef="let element"> {{element.PatientCtrlNbr}} </td>
+      </ng-container>
+      <ng-container matColumnDef="RePriceClaimNum">
+        <th mat-header-cell *matHeaderCellDef> RePriceClaimNum </th>
+        <td mat-cell *matCellDef="let element"> {{element.RePriceClaimNum}} </td>
+      </ng-container>
+      <ng-container matColumnDef="ClaimType">
+        <th mat-header-cell *matHeaderCellDef> ClaimType </th>
+        <td mat-cell *matCellDef="let element"> {{element.ClaimType}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+    <mat-paginator #paginator [length]="providers?.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"
+      showFirstLastButtons>
+    </mat-paginator>
+  </mat-card>
 </div>

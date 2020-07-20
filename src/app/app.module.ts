@@ -18,7 +18,6 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ProviderComponent } from './provider/provider.component';
-import { TableComponent } from './table/table.component';
 
 @NgModule({
    declarations: [
@@ -30,7 +29,6 @@ import { TableComponent } from './table/table.component';
       SearchComponent,
       HomeComponent,
       ProviderComponent,
-      TableComponent
    ],
    imports: [
       BrowserModule,

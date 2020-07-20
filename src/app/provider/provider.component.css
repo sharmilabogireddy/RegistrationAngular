@@ -6,3 +6,10 @@ button.mat-raised-button {
   height: 42px;
   margin: 10px;
 }
+table {
+  width: 100%;
+}
+.card{
+  margin-bottom: 30px;
+}
+
