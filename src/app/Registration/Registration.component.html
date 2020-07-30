@@ -34,31 +34,38 @@
         </mat-form-field>
         <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
           <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
-          <mat-error *ngIf="f.password.errors.minlength">Password must be at least 8 characters</mat-error>
+          <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Confirm Password</mat-label>
           <input matInput type="password" formControlName="confirmPassword" placeholder="Enter Password" required>
         </mat-form-field>
-        <div *ngIf="f.confirmPassword.touched && f.confirmPassword.value != f.password.value" class="alert alert-danger">
+        <div *ngIf="f.confirmPassword.touched && f.confirmPassword.value != f.password.value"
+          class="alert alert-danger">
           <mat-error *ngIf="f.confirmPassword.errors.required">Confirm Password is required</mat-error>
           <mat-error *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</mat-error>
         </div>
-      </div>-->
+      </div>
       <div class="row">
         <mat-form-field appearance="fill" [floatLabel]="floatLabelControl.value">
           <mat-label>Select Roles</mat-label>
-          <mat-select id="role" formControlName="role" required>
+          <mat-select formControlName="role" [ngClass]="{ 'is-invalid': submitted && f.role.errors }" required>
             <mat-option *ngFor="let role of roles" value="{{role.roleId}}">{{role.roleName}}</mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+          <mat-error *ngIf="f.role.errors.required">Role is required.</mat-error>
+        </div>
       </div>
-      <button [disabled]="loading" mat-raised-button color="primary" type="submit">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        Register
-      </button>
+      <div class="button-row">
+        <button class="submit" [disabled]="loading" mat-raised-button color="primary" type="submit">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Register
+        </button>
+        <button mat-raised-button type="reset">Reset</button>
+      </div>
       <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
     </form>
   </mat-card>

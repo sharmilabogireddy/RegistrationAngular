@@ -7,5 +7,17 @@
   align-items: center;
   flex-direction: column;
 }
+.button-row{
+  display: table-cell;
+  width: 490px;
+}
+
+.mat-raised-button {
+  margin: 10px;
+}
+.submit{
+  background-color: #402F7F;
+
+}
 
 

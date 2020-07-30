@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserRegistration } from '../Models/UserRegistration';
 import { registerLocaleData } from '@angular/common';
 import { first } from 'rxjs/internal/operators/first';
+import { MustMatch } from '@app/_helpers/must-match.validators';
 
 @Component({
   selector: 'app-Registration',
@@ -27,30 +28,30 @@ export class RegistrationComponent implements OnInit {
   error = '';
   successMessage = '';
   loading = false;
+  //regForm: FormGroup;
 
   constructor(
     public userService: UserService,
     private route: ActivatedRoute,
-    public authenticationService: UserService
+    public authenticationService: UserService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.getRoles();
-    this.regForm = new FormGroup({
-      userName: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-      ]),
-      //confirmPassword: new FormControl('', [Validators.required]),
-      role: new FormControl('', [Validators.required]),
-      floatLabel: this.floatLabelControl,
-    });
+    this.regForm = this.formBuilder.group({
+        userName: ['', [Validators.required, Validators.minLength(6)]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['',[Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+        role: ['',Validators.required],
+        floatLabel: this.floatLabelControl,
+      },{
+        validator: MustMatch('password', 'confirmPassword'),
+      });
+
   }
+
 
   getRoles() {
     this.userService.getRoles().subscribe((data) => {
@@ -65,34 +66,41 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    this.loading = true;
     this.successMessage = '';
     this.error = '';
+    //console.log(this.regForm.invalid);
     // stop here if form is invalid
     if (this.regForm.invalid) {
+      this.reset();
       return;
     }
-
+    this.submitted = true;
+    this.loading = true;
     let reg = new UserRegistration();
     reg.userName = this.f.userName.value;
     reg.password = this.f.password.value;
     reg.emailId = this.f.email.value;
     reg.roleId = parseInt(this.f.role.value);
-    this.userService.userRegistration(reg).pipe(first())
-    .subscribe(
-      (data) => {
-        this.loading = false;
-        this.submitted = false;
-        this.reset();
-        this.successMessage = "User Created!";
-      },
-      (error) => {
-        this.error = error;
-        this.loading = false;
-        this.submitted = false;
-      }
-    );
+    this.userService
+      .userRegistration(reg)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          //console.log("sucess..");
+          this.loading = false;
+          this.submitted = false;
+          this.reset();
+          //this.reset();
+          this.successMessage = 'User Created!';
+        },
+        (error) => {
+          console.log("Error...");
+          console.log(error);
+          this.error = error;
+          this.loading = false;
+          this.submitted = false;
+        }
+      );
     //console.log('Successfully submitted');
   }
 
@@ -100,6 +108,7 @@ export class RegistrationComponent implements OnInit {
     this.loading = false;
     this.submitted = false;
     this.regForm.reset();
+    // this.regForm.resetForm();
     //this.regForm.get('userName').clearAsyncValidators();
     this.regForm.get('userName').clearValidators();
     this.regForm.get('userName').updateValueAndValidity();
@@ -107,8 +116,9 @@ export class RegistrationComponent implements OnInit {
     this.regForm.get('email').updateValueAndValidity();
     this.regForm.get('password').clearValidators();
     this.regForm.get('password').updateValueAndValidity();
+    this.regForm.get('confirmPassword').clearValidators();
+    this.regForm.get('confirmPassword').updateValueAndValidity();
     this.regForm.get('role').clearValidators();
     this.regForm.get('role').updateValueAndValidity();
   }
-
 }
